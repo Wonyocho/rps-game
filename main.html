@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>가위바위보 / 주사위 게임</title>
+  <title>✊✌️🖐 가위바위보 게임 ✊✌️🖐</title>
   <style>
-    /* 반응형 카드 UI 스타일 */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: #f0f0f0;
+      background: linear-gradient(to right, #fceabb, #f8b500);
     }
     .container {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      max-width: 420px;
       width: 100%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
     .buttons {
       display: flex;
@@ -31,19 +34,24 @@
     .buttons button {
       flex: 1 1 30%;
       margin: 5px;
-      padding: 10px;
+      padding: 14px 10px;
       border: none;
-      border-radius: 8px;
-      background: #ddd;
+      border-radius: 12px;
+      background: #f0f0f0;
+      font-size: 24px;
+      transition: all 0.2s ease;
       cursor: pointer;
-      font-size: 16px;
+    }
+    .buttons button:hover {
+      background: #ddd;
     }
     #result {
       text-align: center;
       font-weight: bold;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 18px;
     }
     .win { background: #d4edda; color: #155724; }
     .lose { background: #f8d7da; color: #721c24; }
@@ -51,11 +59,17 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      background: #fafafa;
+      border-radius: 10px;
+      overflow: hidden;
     }
     th, td {
-      padding: 8px;
+      padding: 10px;
       text-align: center;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    th {
+      background: #f2f2f2;
     }
     @media (max-width: 500px) {
       .buttons button {
@@ -66,14 +80,14 @@
 </head>
 <body>
   <div class="container">
-    <h2>가위바위보 게임</h2>
+    <h2>✊✌️🖐 가위바위보 게임 ✊✌️🖐</h2>
     <div class="buttons">
-      <button onclick="play('가위')">가위</button>
-      <button onclick="play('바위')">바위</button>
-      <button onclick="play('보')">보</button>
+      <button onclick="play('✌️')">✌️</button>
+      <button onclick="play('✊')">✊</button>
+      <button onclick="play('🖐')">🖐</button>
     </div>
-    <div id="result">게임 결과가 여기에 표시됩니다</div>
-    <h4>최근 결과 (최대 5개)</h4>
+    <div id="result">👇 결과가 여기에 표시됩니다</div>
+    <h4>📜 최근 결과 (최대 5개)</h4>
     <table>
       <thead>
         <tr><th>나</th><th>컴퓨터</th><th>결과</th></tr>
@@ -84,7 +98,7 @@
   </div>
 
   <script>
-    const choices = ['가위', '바위', '보'];
+    const choices = ['✌️', '✊', '🖐'];
     const history = [];
 
     function play(userChoice) {
@@ -96,9 +110,9 @@
         resultText = '무승부';
         resultClass = 'draw';
       } else if (
-        (userChoice === '가위' && computerChoice === '보') ||
-        (userChoice === '바위' && computerChoice === '가위') ||
-        (userChoice === '보' && computerChoice === '바위')
+        (userChoice === '✌️' && computerChoice === '🖐') ||
+        (userChoice === '✊' && computerChoice === '✌️') ||
+        (userChoice === '🖐' && computerChoice === '✊')
       ) {
         resultText = '승리';
         resultClass = 'win';
