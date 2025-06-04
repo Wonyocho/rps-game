@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가위바위보 / 주사위 게임</title>
+  <style>
+    /* 반응형 카드 UI 스타일 */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      flex: 1 1 30%;
+      margin: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #ddd;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #result {
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .win { background: #d4edda; color: #155724; }
+    .lose { background: #f8d7da; color: #721c24; }
+    .draw { background: #fff3cd; color: #856404; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    @media (max-width: 500px) {
+      .buttons button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>가위바위보 게임</h2>
+    <div class="buttons">
+      <button onclick="play('가위')">가위</button>
+      <button onclick="play('바위')">바위</button>
+      <button onclick="play('보')">보</button>
+    </div>
+    <div id="result">게임 결과가 여기에 표시됩니다</div>
+    <h4>최근 결과 (최대 5개)</h4>
+    <table>
+      <thead>
+        <tr><th>나</th><th>컴퓨터</th><th>결과</th></tr>
+      </thead>
+      <tbody id="history-body">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const choices = ['가위', '바위', '보'];
+    const history = [];
+
+    function play(userChoice) {
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let resultText = '';
+      let resultClass = '';
+
+      if (userChoice === computerChoice) {
+        resultText = '무승부';
+        resultClass = 'draw';
+      } else if (
+        (userChoice === '가위' && computerChoice === '보') ||
+        (userChoice === '바위' && computerChoice === '가위') ||
+        (userChoice === '보' && computerChoice === '바위')
+      ) {
+        resultText = '승리';
+        resultClass = 'win';
+      } else {
+        resultText = '패배';
+        resultClass = 'lose';
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = `나: ${userChoice}, 컴퓨터: ${computerChoice} → ${resultText}`;
+      resultDiv.className = resultClass;
+
+      history.unshift({ user: userChoice, cpu: computerChoice, result: resultText });
+      if (history.length > 5) history.pop();
+
+      updateHistory();
+    }
+
+    function updateHistory() {
+      const tbody = document.getElementById('history-body');
+      tbody.innerHTML = '';
+      history.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.user}</td><td>${item.cpu}</td><td>${item.result}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
