@@ -13,7 +13,7 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      background: linear-gradient(to right, #74b9ff, #0984e3);
+      background: #74b9ff;
       transition: background 0.5s ease;
       position: relative;
       overflow: hidden;
@@ -41,6 +41,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      z-index: 10; /* 업적 배너보다 위에 표시 */
     }
     
     /* 언어 선택 버튼 스타일 */
@@ -68,25 +69,28 @@
     
     /* 업적/칭호 표시 박스 - 상단에 슬라이드 다운 애니메이션 */
     .achievement-box {
-      width: 100%;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      width: calc(100% - 160px); /* 언어 선택기 공간 더 많이 확보 */
+      background: #fcb69f;
       border-radius: 16px;
       margin-bottom: 20px;
-      padding: 15px;
+      margin-right: 160px; /* 언어 선택기와 더 확실히 분리 */
+      padding: 10px 12px; /* 패딩을 더 줄임 */
       text-align: center;
-      font-size: 18px;
+      font-size: 14px; /* 폰트 크기 더 줄임 */
       font-weight: bold;
       color: #8b4513;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border: 2px solid #f39c12;
       display: none;
       animation: slideDown 0.5s ease-out;
+      position: relative;
+      z-index: 5;
     }
     .achievement-box.show {
       display: block;
     }
     .achievement-box.first-win {
-      background: linear-gradient(to right, #d4edda, #a2d9a4);
+      background: #a2d9a4;
       border-color: #28a745;
       color: #155724;
     }
@@ -251,6 +255,13 @@
         position: static;
         margin-bottom: 15px;
         justify-content: center;
+        z-index: 10;
+      }
+      .achievement-box {
+        width: 100%; /* 모바일에서는 전체 폭 사용 */
+        margin-right: 0; /* 모바일에서는 여백 제거 */
+        font-size: 13px; /* 모바일에서 폰트 크기 더 작게 */
+        padding: 8px 10px; /* 모바일에서 패딩 더 줄임 */
       }
       h2 {
         margin-top: 0;
@@ -616,7 +627,7 @@
           shortResult = 'draw';
           resultText = resultTexts[currentLanguage].draw;
           resultClass = 'draw';
-          bodyBg = 'linear-gradient(to right, #fdcb6e, #e17055)'; // 주황색 배경
+          bodyBg = '#fdcb6e'; // 주황색 배경
           computerBoxClass = 'computer-draw';
           draws++;
           // 무승부는 연승을 끊지 않음 (중요한 게임 룰)
@@ -632,7 +643,7 @@
           shortResult = 'win';
           resultText = resultTexts[currentLanguage].win;
           resultClass = 'win';
-          bodyBg = 'linear-gradient(to right, #00b894, #00cec9)'; // 초록색 배경
+          bodyBg = '#00b894'; // 초록색 배경
           computerBoxClass = 'computer-lose';
           wins++;
           winStreak++; // 연승 카운터 증가
@@ -657,7 +668,7 @@
           shortResult = 'lose';
           resultText = resultTexts[currentLanguage].lose;
           resultClass = 'lose';
-          bodyBg = 'linear-gradient(to right, #e17055, #d63031)'; // 빨간색 배경
+          bodyBg = '#e17055'; // 빨간색 배경
           computerBoxClass = 'computer-win';
           losses++;
           winStreak = 0; // 패배 시 연승 초기화
@@ -691,7 +702,7 @@
           // 컴퓨터 박스 배경색 초기화
           computerBox.classList.remove('computer-win', 'computer-lose', 'computer-draw');
           // 배경을 기본 파란색으로 복구
-          document.body.style.background = 'linear-gradient(to right, #74b9ff, #0984e3)';
+          document.body.style.background = '#74b9ff';
           // 컴퓨터 이모지 회전 재시작 (현재 이모지에서 이어서)
           rotateIdx = choices.indexOf(computerChoice);
           if (!rotateTimer) rotateComputerEmoji();
